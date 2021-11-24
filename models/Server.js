@@ -3,13 +3,14 @@ const cors = require('cors');
 const { dbConnection } = require('../database/config');
 const fileUpload = require('express-fileupload');
 const {createServer} = require('http');
+const socketController = require('../models/socketController')
 
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        const server = crateServer(this.app)
-        this.io = require('socket.io')(server);
+        this.server = createServer(this.app)
+        this.io = require('socket.io')(this.server);
         this.conectarDB()
         this.middleware();
         this.routes();
@@ -45,7 +46,7 @@ class Server {
         this.app.use('/api/uploads',require('../routes/uploads'));
     }
     sockets(){
-        this.io.on('connection',require('../sockets/controller'));
+        this.io.on('connection',socketController);
     }
     listen() {
         this.server.listen(this.port, () => {
