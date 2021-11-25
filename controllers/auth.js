@@ -4,6 +4,8 @@ var bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { generateToken } = require('../helpers/generate-token');
 const { verifyGoogleToken } = require('../helpers/verify-google-sign-ing');
+
+
 const login = async (req, res = response) => {
     const { email, password } = req.body
     const user = await User.findOne({ email });
@@ -61,9 +63,15 @@ const googleSignIn = async (req, res = response) => {
             'msg': 'El token de google no es valido'
         })
     }
-
-
-
-
 }
-module.exports = { login, googleSignIn }
+
+const renewToken = async(req,res) => {
+
+    const user = req.currentUser;
+    const token = await generateToken(user._id)
+    res.json({
+        user,
+        token
+    })
+}
+module.exports = { login, googleSignIn,renewToken }
