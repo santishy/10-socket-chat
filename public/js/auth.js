@@ -17,7 +17,6 @@ form.addEventListener('submit',(event) => {
             formData[ele.name] = ele.value;
         }
     }
-    console.log({body:formData})
     fetch(url + 'login', {
         'method': 'POST',
         'headers': { 'Content-Type': 'application/json' },
@@ -28,9 +27,9 @@ form.addEventListener('submit',(event) => {
             const {msg,token} = res;
             if(!msg){
                 localStorage.setItem('token',token);
-                return;
+                window.location = 'chat.html';
             }
-            console.log(msg);
+            console.log(msg)
 
         })
         .catch(err => { console.log(err) });
@@ -58,8 +57,9 @@ function handleCredentialResponse(response) {
         body
     }).then(res => res.json())
         .then(res => {
-            console.log(res);
             localStorage.setItem('email', res.email);
+            window.location = 'chat.html';
+
         }
         )
         .catch(err => console.warn)

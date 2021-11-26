@@ -67,10 +67,10 @@ const googleSignIn = async (req, res = response) => {
 
 const renewToken = async(req,res) => {
 
-    const user = req.currentUser;
-    const token = await generateToken(user._id)
+    const currentUser = req.currentUser;
+    const token = await generateToken(currentUser._id)
     res.json({
-        user,
+        currentUser,
         token
     })
 }
