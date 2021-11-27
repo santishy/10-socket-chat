@@ -46,7 +46,7 @@ class Server {
         this.app.use('/api/uploads',require('../routes/uploads'));
     }
     sockets(){
-        this.io.on('connection',socketController);
+        this.io.on('connection',(socket) => socketController(socket,this.io));
     }
     listen() {
         this.server.listen(this.port, () => {
