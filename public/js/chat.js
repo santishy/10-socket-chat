@@ -49,6 +49,16 @@ const showUserList = (list) => {
     })
     userList.innerHTML = template;
 }
+const showMessageList = (list) => {
+    let template = '';
+    list.forEach( ({message,name}) => {
+        template += `<li>
+            <span class="text-primary text-xs">${name}:</span>
+            <span>${message}</span>
+        </li>`; 
+    })
+    messageList.innerHTML = template;
+}
 
 const connect = async (token) => {
     socket = io({
@@ -68,6 +78,7 @@ const connect = async (token) => {
     })
     socket.on('receive-message',(payload) => {
         console.log(payload)
+        showMessageList(payload);
     });
 
     //no se manda el argumento por que una funcion (arg) => otrafunciono(arg), es equivalente a enviar solo el nombre d la funcion ya va implicito el argumento.

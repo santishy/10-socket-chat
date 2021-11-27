@@ -15,7 +15,7 @@ class ChatMessage {
     }
 
     get lastTen(){
-        return this.messages.splice(0,10);
+        return this.messages.slice(0,10);
     }
 
     get userList(){
