@@ -84,7 +84,9 @@ const connect = async (token) => {
     //no se manda el argumento por que una funcion (arg) => otrafunciono(arg), es equivalente a enviar solo el nombre d la funcion ya va implicito el argumento.
     socket.on('active-users',showUserList);
 
-    socket.on('private-message',() => {});
+    socket.on('private-message',(payload) => {
+        console.log(payload)
+    });
 }
 
 message.addEventListener('keyup',({keyCode}) => {

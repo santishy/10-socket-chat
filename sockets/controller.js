@@ -27,7 +27,7 @@ const socketController = async (socket, io) => {
 
     socket.on('send-message', ({ message = '', uid = '' }) => {
         if(uid.length>0){
-            socket.to(uid).emit('receive-message',{from:user.name,message});
+            socket.to(uid).emit('private-message',{from:user.name,message});
             return;
         }
         chatMessage.sendMessage(user.id, user.name, message);
